@@ -1,0 +1,24 @@
+---
+description: AI-agent workflow for blockchain agency projects
+alwaysApply: true
+---
+
+# Blockchain Agency Agent Rules
+
+- Read `AGENTS.md` before making non-trivial changes.
+- For vague requests, use `agent-playbooks/product-office-hours.md` to clarify
+  scope before coding.
+- For contract, custody, wallet, deployment, indexer, or integration work, use
+  `agent-playbooks/architecture-review.md` before implementation.
+- For Solidity or deploy-script changes, run a security review using
+  `agent-playbooks/smart-contract-security-review.md`.
+- Before shipping, use `agent-playbooks/qa-release-review.md`.
+- Never commit private keys, seed phrases, mnemonics, RPC secrets, or API keys.
+- Never invent chain IDs, contract addresses, ABIs, audit outcomes, or security
+  claims.
+- Do not deploy to mainnet or execute privileged transactions unless the user
+  explicitly approves the exact action.
+- Prefer Foundry for contract tests and local forks when an EVM project has no
+  established tooling.
+- Add or update docs when behavior, architecture, environment, or deployment
+  steps change.
