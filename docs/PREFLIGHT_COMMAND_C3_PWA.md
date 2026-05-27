@@ -289,6 +289,8 @@ The first production-wiring pass was implemented in Forgejo feature branches:
 | `c3-alliance/command-c3` | `cursor/command-c3-dashboard-presence-e9f7` | `e4def0a` | Stabilize `/api/v1/member/dashboard`, add compatibility payload shape, add `/api/v1/member/presence`, make member routes tolerate D1 query gaps instead of throwing 500. |
 | `c3-alliance/c3-gate` | `cursor/c3-gate-nats-websocket-bridge-e9f7` | `86ef2c2` | Implement first-production `/ws/koko` and `/ws/kosmo` bridge from browser WebSockets to NATS, with DIDComm/passkey auth verification, NATS mTLS config hooks, and K8s attestation-event publication. |
 
+These branches were fast-forwarded into Forgejo `main` for each source repo.
+
 Validation performed:
 
 ```bash
@@ -334,6 +336,41 @@ WebSocket decision:
   `c3.kosmo.k8s.atestado.ws.*`.
 - `/ws/koko` subscribes to `c3.koko.>` and `c3.kosmo.handoff.delegated`.
 - `/ws/kosmo` subscribes to `c3.kosmo.>` and `c3.kosmo.k8s.atestado.>`.
+
+## Deployment status
+
+Source-of-truth implementation is merged in Forgejo:
+
+| Repo | Main includes |
+| --- | --- |
+| `kosmo/command-center` | `5665365` |
+| `c3-alliance/command-c3` | `e4def0a` |
+| `c3-alliance/c3-gate` | `86ef2c2` |
+
+Live Cloudflare deployment was not performed from this agent environment because
+Wrangler is unauthenticated and no Cloudflare API token/account environment
+variables are available here.
+
+Post-merge live probes still show the previous deployed Worker behavior:
+
+| Probe | Result |
+| --- | --- |
+| `https://command.c3-alliance.org` | `200 OK`, current deployed PWA still served. |
+| `https://command-c3.team-d90.workers.dev/_health` | `200 OK`. |
+| `https://command-c3.team-d90.workers.dev/api/v1/member/dashboard` | Still `500`, indicating updated `command-c3` source is not deployed yet. |
+| `https://command-c3.team-d90.workers.dev/api/v1/member/presence` | Still `404`, indicating updated `command-c3` source is not deployed yet. |
+| `https://gate.c3-voice.org/_health` | `200 OK`. |
+
+Deployment follow-up:
+
+1. Deploy `c3-alliance/command-c3` from Forgejo `main` to Cloudflare Workers.
+2. Deploy `kosmo/command-center` from Forgejo `main` to Cloudflare Workers.
+3. Restart/redeploy `c3-gate` on the sovereign node from Forgejo `main`.
+4. Provision NATS mTLS files if the production NATS endpoint requires TLS:
+   - `NATS_TLS_CA_FILE`
+   - `NATS_TLS_CERT_FILE`
+   - `NATS_TLS_KEY_FILE`
+5. Re-run smoke probes for dashboard, presence, `/ws/koko`, and `/ws/kosmo`.
 
 ## SAGE-Mastranto alignment
 
