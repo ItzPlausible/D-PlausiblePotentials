@@ -18,7 +18,8 @@ agent is treated like a team of specialists instead of a generic autocomplete.
 
 ## Quick start
 
-1. Read [`AGENTS.md`](AGENTS.md) for the agent workflow and ground rules.
+1. Read [`docs/AI_AGENT_OPERATING_GUIDE.md`](docs/AI_AGENT_OPERATING_GUIDE.md)
+   for a review-friendly version of the agent workflow and ground rules.
 2. Copy `.env.example` to `.env` and fill only the keys needed for your current
    project.
 3. Review [`docs/ENVIRONMENT.md`](docs/ENVIRONMENT.md) and install the local
@@ -53,6 +54,7 @@ agent is treated like a team of specialists instead of a generic autocomplete.
 .
 ├── AGENTS.md                         # AI-agent operating rules and specialist roles
 ├── docs/
+│   ├── AI_AGENT_OPERATING_GUIDE.md   # Human-readable agent workflow guide
 │   ├── ENVIRONMENT.md                # Local and cloud development setup
 │   ├── OPERATING_MODEL.md            # Agency delivery process
 │   └── SECURITY.md                   # Blockchain security baseline
