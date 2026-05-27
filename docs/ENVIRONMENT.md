@@ -137,6 +137,17 @@ Pages, R2, D1, Durable Objects, KV, Queues, WAF, DDoS protection, API Shield,
 Turnstile, Tunnel, Spectrum, Workers AI, Vectorize, and related platform
 decisions.
 
+For account inspection and deployment automation, use the PPC Cloudflare MCP
+server in `mcp/cloudflare/`. It expects managed secrets:
+
+```bash
+CLOUDFLARE_ACCOUNT_ID=
+CLOUDFLARE_API_TOKEN=
+```
+
+The Cloudflare MCP server exposes guarded Wrangler commands for deploy/check
+workflows and does not store Cloudflare tokens in the repo.
+
 ## Forgejo source-of-truth requirement
 
 PPC uses the full Forgejo instance at `https://git.c3-voice.org` as the

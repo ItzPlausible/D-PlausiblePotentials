@@ -5,7 +5,8 @@
   "description": "Blockchain agency workspace for AI-agent-augmented coding projects.",
   "type": "module",
   "scripts": {
-    "check": "node scripts/check-repo.mjs && node scripts/check-forgejo-mcp.mjs && node scripts/check-forgejo-mcp-runtime.mjs",
+    "check": "node scripts/check-repo.mjs && node scripts/check-forgejo-mcp.mjs && node scripts/check-forgejo-mcp-runtime.mjs && node scripts/check-cloudflare-mcp.mjs && node scripts/check-cloudflare-mcp-runtime.mjs",
+    "mcp:cloudflare": "node mcp/cloudflare/server.mjs",
     "mcp:forgejo": "node mcp/forgejo/server.mjs"
   },
   "engines": {

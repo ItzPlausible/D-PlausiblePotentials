@@ -1,0 +1,12 @@
+{
+  "mcpServers": {
+    "ppc-cloudflare": {
+      "command": "node",
+      "args": ["mcp/cloudflare/server.mjs"],
+      "env": {
+        "CLOUDFLARE_ACCOUNT_ID": "${CLOUDFLARE_ACCOUNT_ID}",
+        "CLOUDFLARE_API_TOKEN": "${CLOUDFLARE_API_TOKEN}"
+      }
+    }
+  }
+}

@@ -66,6 +66,7 @@ agent is treated like a team of specialists instead of a generic autocomplete.
 │   ├── SECURITY.md                   # Blockchain security baseline
 │   └── TECH_STACK.md                 # PPC technology preferences
 ├── agent-playbooks/                  # Reusable prompts/checklists for agent sessions
+├── mcp/cloudflare/                   # Cloudflare MCP server for account/deploy workflows
 ├── mcp/forgejo/                      # Forgejo MCP server for the git.c3-voice.org instance
 ├── templates/client-project/         # Starting point for client projects
 ├── scripts/check-repo.mjs            # No-dependency repo hygiene checks
