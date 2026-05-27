@@ -14,6 +14,7 @@ const requiredPaths = [
   "agent-playbooks/README.md",
   "mcp/forgejo/server.mjs",
   "mcp/forgejo/README.md",
+  "mcp/forgejo/cursor-mcp.example.json",
   "templates/client-project/README.md",
   ".env.example",
   ".gitignore",

@@ -33,6 +33,10 @@ FORGEJO_OWNER=<default-owner-or-org>
 Do not commit Forgejo tokens. Do not store source-of-truth credentials in
 GitHub-tracked files.
 
+If `C3-Cursor` is the Forgejo token name, bind that token to the managed
+environment variable `FORGEJO_TOKEN` in the MCP host. The MCP server expects the
+environment variable name, not the token's display name.
+
 ## Run locally for MCP hosts
 
 ```bash
@@ -43,8 +47,11 @@ The server uses stdio, so it waits for an MCP client to connect.
 
 ## Cursor MCP configuration example
 
-Add this kind of entry to the MCP host configuration, with the token supplied by
-the host's managed secret mechanism:
+Use [`cursor-mcp.example.json`](cursor-mcp.example.json) as the starting point.
+It references `${FORGEJO_TOKEN}` so the MCP host can inject the managed secret
+without storing the token in git.
+
+Equivalent inline example:
 
 ```json
 {
@@ -54,7 +61,8 @@ the host's managed secret mechanism:
       "args": ["mcp/forgejo/server.mjs"],
       "env": {
         "FORGEJO_URL": "https://git.c3-voice.org",
-        "FORGEJO_OWNER": "Kosmo"
+        "FORGEJO_OWNER": "Kosmo",
+        "FORGEJO_TOKEN": "${FORGEJO_TOKEN}"
       }
     }
   }
@@ -63,6 +71,17 @@ the host's managed secret mechanism:
 
 If the MCP host supports secret interpolation, bind `FORGEJO_TOKEN` there rather
 than placing it in this file.
+
+## Important distinction
+
+A GitHub-tracked `.env` file is repository content, not a safe managed secret
+location. PPC's intended workflow is:
+
+1. Create the Forgejo token in Forgejo. Example display name: `C3-Cursor`.
+2. Store that token in the MCP host or cloud-agent secret manager as
+   `FORGEJO_TOKEN`.
+3. Configure this MCP server to read `FORGEJO_TOKEN` from the host environment.
+4. Use the MCP tools for source-of-truth access.
 
 ## Current scope
 

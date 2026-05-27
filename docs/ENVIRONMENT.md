@@ -161,6 +161,13 @@ FORGEJO_OWNER=
 Local `.env` is a last-resort local development fallback, not PPC's normal
 source-of-truth access pattern.
 
+For the Forgejo token named `C3-Cursor`, store the token value as the managed
+environment variable `FORGEJO_TOKEN`. The name `C3-Cursor` is the token's display
+name in Forgejo; `FORGEJO_TOKEN` is the variable the MCP server reads.
+
+See [`../mcp/forgejo/cursor-mcp.example.json`](../mcp/forgejo/cursor-mcp.example.json)
+for a Cursor MCP configuration example.
+
 ## Cloud agent notes
 
 Cursor Cloud agents start from a clean machine. When adding heavyweight

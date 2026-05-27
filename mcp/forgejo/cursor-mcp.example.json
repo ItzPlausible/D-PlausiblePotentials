@@ -1,0 +1,13 @@
+{
+  "mcpServers": {
+    "ppc-forgejo": {
+      "command": "node",
+      "args": ["mcp/forgejo/server.mjs"],
+      "env": {
+        "FORGEJO_URL": "https://git.c3-voice.org",
+        "FORGEJO_OWNER": "Kosmo",
+        "FORGEJO_TOKEN": "${FORGEJO_TOKEN}"
+      }
+    }
+  }
+}
