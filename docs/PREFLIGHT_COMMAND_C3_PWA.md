@@ -279,6 +279,46 @@ Production fix:
 - ensure CoCoA panel calls `/api/inference`,
 - keep C3-TIR/OpenRouter routing off the browser surface.
 
+## Implementation branches opened
+
+The first production-wiring pass was implemented in Forgejo feature branches:
+
+| Repo | Branch | Commit | Scope |
+| --- | --- | --- | --- |
+| `kosmo/command-center` | `cursor/command-pwa-production-wiring-e9f7` | `5665365` | Align Svelte PWA to `command-c3`, fix auth method, remove browser-global env assumptions, route inference through `/api/inference`, add PWA icons, normalize market/commons data, clean Svelte warnings. |
+| `c3-alliance/command-c3` | `cursor/command-c3-dashboard-presence-e9f7` | `e4def0a` | Stabilize `/api/v1/member/dashboard`, add compatibility payload shape, add `/api/v1/member/presence`, make member routes tolerate D1 query gaps instead of throwing 500. |
+
+Validation performed:
+
+```bash
+# kosmo/command-center
+pnpm run check
+pnpm run build
+
+# c3-alliance/command-c3
+node --check src/index.js
+node --check src/governance-engine.js
+node --check src/xpt-verification.js
+node --check src/zero-trust.js
+node --check src/c3-capability.js
+git diff --check
+```
+
+Results:
+
+- Svelte check: 0 errors, 0 warnings.
+- SvelteKit production build: passed.
+- Worker JavaScript syntax checks: passed.
+- Whitespace checks: passed.
+
+Remaining deferred blocker:
+
+- `c3-alliance/cocoa-v2/apps/command` contains `/ws/koko` and `/ws/kosmo`
+  client stores, but `command-c3` does not implement WebSocket upgrade routes.
+  This is intentionally deferred until the production decision is made:
+  - implement WebSocket fanout backed by NATS, or
+  - keep live panels disabled/hidden for first production.
+
 ## SAGE-Mastranto alignment
 
 The desktop PWA should treat SAGE as the memory/provenance peer, not as a hidden
