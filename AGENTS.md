@@ -10,6 +10,30 @@ Ship useful, secure blockchain software with a clear paper trail. Before making
 changes, understand the client goal, the trust boundaries, and the chain-specific
 failure modes. Do not trade custody, key management, or contract safety for speed.
 
+## PPC tech stack preferences
+
+Use `docs/TECH_STACK.md` as the source of truth for Plausible Potentials
+Consulting stack preferences. Default to:
+
+- Cardano L1 for public transparency, accountability, and minting.
+- Midnight Network for selective disclosure and ZK-SNARK projects.
+- Hydra for Cardano L2 scaling.
+- Hyperledger Fabric chaincode for permissioned-chain work.
+- Hyperledger Credo, Identus, AnonCreds, and DIDComm v2 for decentralized
+  identifier and verifiable credential dapps.
+- LayerZero and Cosmos IBC for interoperability, with Cosmos IBC also preferred
+  for oracle-oriented interchain projects.
+- TypeScript and Python as primary languages.
+- Plutus, Aiken, and Compact when the chain or contract domain requires them.
+- Svelte for PWA/dapp frontends across desktop and mobile surfaces.
+- Cloudflare architecture for edge, security, storage, and globally distributed
+  infrastructure.
+- Kubernetes, Helm, NATS JetStream, DIDComm v2, and Kubernetes attestation events
+  for sovereign node-oriented communications.
+
+Do not default to EVM, Solidity, Foundry, or Hardhat unless the project is
+explicitly EVM-based.
+
 ## Default workflow
 
 1. **Intake**
@@ -68,7 +92,7 @@ thinking:
 | --- | --- |
 | Product office hours | The request is vague, strategic, or client-facing. |
 | Architecture review | The work touches contracts, indexing, custody, infra, or integrations. |
-| Smart-contract security review | The work changes Solidity, deploy scripts, admin roles, or token flows. |
+| Chain security review | The work changes validators, chaincode, contracts, deploy scripts, identity trust, admin roles, or token flows. |
 | QA and release review | The work is ready to verify and ship. |
 
 ## Blockchain engineering rules
@@ -85,6 +109,10 @@ thinking:
   they are signing.
 - Keep generated artifacts out of git unless the project intentionally tracks
   them.
+- For Cloudflare implementation work, use the `Cloudflare-docs` MCP server to
+  confirm current product behavior and configuration.
+- For Svelte component or module work, use official Svelte guidance before
+  editing.
 
 ## Required evidence in PRs
 

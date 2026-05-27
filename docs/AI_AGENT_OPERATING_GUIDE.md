@@ -35,6 +35,32 @@ Before changing code, an agent should understand:
 Speed should never come at the expense of user funds, private keys, contract
 safety, or repository history.
 
+## PPC tech stack preferences
+
+Agents should use [`TECH_STACK.md`](TECH_STACK.md) as the source of truth for
+Plausible Potentials Consulting technology preferences.
+
+Default biases:
+
+- **Cardano L1** for public-chain transparency, accountability, and minting.
+- **Midnight Network** for selective disclosure, privacy, and ZK-SNARK projects.
+- **Hydra** for Cardano-aligned L2 scaling.
+- **Hyperledger Fabric chaincode** for permissioned-chain systems.
+- **Hyperledger Credo, Identus, AnonCreds, and DIDComm v2** for decentralized
+  identifier and verifiable credential dapps.
+- **LayerZero** for interoperability when its trust model fits the project.
+- **Cosmos IBC** for interoperability and oracle development projects.
+- **TypeScript and Python** as primary development languages.
+- **Plutus, Aiken, and Compact** when the chain or contract domain requires
+  them.
+- **Svelte** for PWA and dapp frontends across desktop and mobile surfaces.
+- **Cloudflare** for edge, security, storage, and distributed infrastructure.
+- **Kubernetes, Helm, NATS JetStream, DIDComm v2, and Kubernetes attestation
+  events** for sovereign node-oriented communications.
+
+Agents should not default to EVM, Solidity, Foundry, or Hardhat unless the
+client or project scope is explicitly EVM-based.
+
 ## Default workflow
 
 ### 1. Intake
@@ -153,7 +179,7 @@ needs structured thinking.
 | --- | --- | --- |
 | Product office hours | [`product-office-hours.md`](../agent-playbooks/product-office-hours.md) | The request is vague, strategic, or client-facing. |
 | Architecture review | [`architecture-review.md`](../agent-playbooks/architecture-review.md) | The work touches contracts, indexing, custody, infrastructure, or integrations. |
-| Smart-contract security review | [`smart-contract-security-review.md`](../agent-playbooks/smart-contract-security-review.md) | The work changes Solidity, deploy scripts, admin roles, or token flows. |
+| Chain security review | [`smart-contract-security-review.md`](../agent-playbooks/smart-contract-security-review.md) | The work changes validators, chaincode, contracts, deploy scripts, identity trust, admin roles, or token flows. |
 | QA and release review | [`qa-release-review.md`](../agent-playbooks/qa-release-review.md) | The work is ready to verify and ship. |
 
 ## Blockchain engineering rules
@@ -167,10 +193,13 @@ needs structured thinking.
   rollback strategy.
 - Avoid irreversible mainnet actions in automation unless a human explicitly
   approves the exact network, address, calldata, and value.
-- Test against realistic chain state with local forks for DeFi integrations.
+- Test against realistic chain state for each target ecosystem.
 - Treat frontend signing UX as part of security.
 - Keep generated artifacts out of git unless the project intentionally tracks
   them.
+- Use the `Cloudflare-docs` MCP server before making Cloudflare implementation
+  decisions.
+- Use official Svelte guidance before editing Svelte components or modules.
 
 ## Required evidence in PRs
 
@@ -216,10 +245,10 @@ Human approval is required before:
 When reviewing this guide, consider:
 
 1. Do these agent boundaries match how you want the agency to operate?
-2. Are there chains besides EVM that should be first-class now?
+2. Which PPC-preferred chains or protocols should get project templates first?
 3. Should mainnet deployment be completely forbidden to agents, or allowed with
    explicit checklist approval?
-4. Should the agency require a specific stack such as Foundry, Hardhat, Next.js,
-   Wagmi, Viem, Supabase, or Cloudflare?
+4. Which Cloudflare services are mandatory for the first production reference
+   architecture?
 5. Should client work live inside this repo, or should this repo remain a
    reusable operating template for separate client repos?

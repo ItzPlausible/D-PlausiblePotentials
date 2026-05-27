@@ -22,5 +22,5 @@
 
 ## Agent notes
 
-Use `agent-playbooks/smart-contract-security-review.md` for contract or deploy
-changes.
+Use `agent-playbooks/smart-contract-security-review.md` for validator,
+chaincode, contract, DID/VC trust, messaging, or deploy changes.

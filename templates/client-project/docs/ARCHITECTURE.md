@@ -10,23 +10,35 @@
 | Frontend | | |
 | Backend/API | | |
 | Indexer | | |
+| Identity / credentials | | |
+| Messaging | | |
+| Cloudflare edge | | |
+| Kubernetes / Helm | | |
 | Infrastructure | | |
 
 ## Data flow
 
 ```text
 User wallet
-  -> Frontend
-  -> RPC provider
-  -> Contract
-  -> Events
-  -> Indexer/API
-  -> Frontend state
+  -> Svelte PWA/dapp
+  -> Chain / DID / credential network
+  -> Events / credentials / messages
+  -> NATS JetStream / indexer / API
+  -> Cloudflare edge or Kubernetes service
+  -> UI state
 ```
 
 ## Trust boundaries
 
 ## Contracts
+
+## DID and verifiable credentials
+
+## Interoperability and oracles
+
+## Sovereign communications
+
+## Cloudflare architecture
 
 ## Off-chain services
 

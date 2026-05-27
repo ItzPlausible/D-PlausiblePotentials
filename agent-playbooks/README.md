@@ -12,5 +12,9 @@ Recommended sequence:
 4. [`smart-contract-security-review.md`](smart-contract-security-review.md)
 5. [`qa-release-review.md`](qa-release-review.md)
 
+The security playbook name is kept stable for links, but it covers chain
+security broadly: validators, chaincode, contracts, DID/VC trust, messaging, and
+deployment authority.
+
 The goal is not ceremony. The goal is to make hidden assumptions visible before
 they become expensive blockchain mistakes.

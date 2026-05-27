@@ -6,18 +6,23 @@ project workspaces consistently.
 ## Baseline tools
 
 Install the tools that match the project you are working on. The default agency
-stack is EVM-first.
+stack is documented in [`TECH_STACK.md`](TECH_STACK.md).
 
 | Area | Recommended tool | Purpose |
 | --- | --- | --- |
 | Git | Git + GitHub CLI | Source control and PR inspection |
-| JavaScript | Node.js LTS + pnpm | Frontends, scripts, SDKs, Hardhat |
-| Solidity | Foundry | Fast contract tests, fuzzing, local forks |
-| Solidity | Hardhat | Plugin-rich deployments and ecosystem integrations |
-| Security | Slither | Static analysis for Solidity |
-| Security | Mythril or Aderyn | Deeper contract analysis when needed |
-| Local chain | Anvil | Deterministic local EVM |
-| Wallet QA | MetaMask or Rabby | Browser signing flows |
+| TypeScript | Node.js LTS + pnpm | Svelte PWAs, dapps, SDKs, Cloudflare code, automation |
+| Python | Python 3 + uv or pipx | Services, data workflows, oracle prototypes, automation |
+| Frontend | Svelte | Dual desktop and mobile PWA/dapp surfaces |
+| Cardano | Cardano CLI, Aiken, Plutus tooling | Cardano minting, validators, scripts |
+| Privacy | Midnight Compact tooling | Selective disclosure and ZK-oriented contracts |
+| Permissioned chain | Hyperledger Fabric tooling | Chaincode and permissioned-network development |
+| Identity | Hyperledger Credo, Identus, AnonCreds | DID and verifiable credential dapps |
+| Interop | LayerZero tooling, Cosmos SDK/IBC tooling | Cross-chain messaging, IBC, oracle projects |
+| Cloudflare | Wrangler | Workers, Pages, R2, D1, KV, Durable Objects, Queues |
+| Messaging | NATS CLI | NATS JetStream streams, consumers, and node messaging |
+| Containers | Docker | Reproducible services and infra dependencies |
+| Orchestration | kubectl + Helm | Kubernetes and Helm distribution |
 | Containers | Docker | Reproducible services and infra dependencies |
 
 ## Suggested installs
@@ -27,13 +32,21 @@ stack is EVM-first.
 corepack enable
 corepack prepare pnpm@latest --activate
 
-# Foundry
-curl -L https://foundry.paradigm.xyz | bash
-foundryup
+# Python tooling
+python3 -m pip install --user pipx
+python3 -m pipx ensurepath
 
-# Solidity static analysis
-python3 -m pip install --user slither-analyzer
+# Cloudflare Workers/Pages tooling
+pnpm add -g wrangler
+
+# Kubernetes distribution tooling
+# Install kubectl and Helm using your OS package manager or official installers.
 ```
+
+Project-specific toolchains such as Aiken, Plutus, Midnight Compact,
+Hyperledger Fabric, Cosmos SDK, LayerZero, and NATS should be installed when a
+client project requires them. Document exact versions in the client project
+README.
 
 ## Environment variables
 
@@ -57,10 +70,12 @@ should read `AGENTS.md` before editing and should use the playbooks in
 Recommended agent loop:
 
 1. Ask for or draft a spec.
-2. Run the architecture playbook.
+2. Check [`TECH_STACK.md`](TECH_STACK.md) for PPC defaults.
 3. Implement in small slices.
-4. Run the smart-contract security playbook for on-chain changes.
-5. Run QA and release review before PR.
+4. Run the architecture playbook.
+5. Run the security playbook for on-chain, DID, credential, messaging, or
+   deployment changes.
+6. Run QA and release review before PR.
 
 ## Client project layout
 
@@ -79,6 +94,7 @@ clients/<client-or-project-slug>/
 ├── contracts/
 ├── apps/
 ├── packages/
+├── charts/
 ├── scripts/
 └── test/
 ```
@@ -95,13 +111,21 @@ pnpm install
 pnpm lint
 pnpm typecheck
 pnpm test
-forge test
-forge test --fork-url "$MAINNET_RPC_URL"
-slither contracts
+wrangler deploy --dry-run
+helm lint charts/*
+kubectl diff -f k8s/
 ```
 
 If a project uses different commands, document them in that project's README and
 `docs/SPEC.md`.
+
+## Cloudflare MCP requirement
+
+When Cloudflare implementation details matter, agents must use the
+`Cloudflare-docs` MCP server. Use `search_cloudflare_documentation` for Workers,
+Pages, R2, D1, Durable Objects, KV, Queues, WAF, DDoS protection, API Shield,
+Turnstile, Tunnel, Spectrum, Workers AI, Vectorize, and related platform
+decisions.
 
 ## Cloud agent notes
 

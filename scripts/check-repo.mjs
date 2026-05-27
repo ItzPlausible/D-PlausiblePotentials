@@ -10,6 +10,7 @@ const requiredPaths = [
   "docs/ENVIRONMENT.md",
   "docs/OPERATING_MODEL.md",
   "docs/SECURITY.md",
+  "docs/TECH_STACK.md",
   "agent-playbooks/README.md",
   "templates/client-project/README.md",
   ".env.example",
