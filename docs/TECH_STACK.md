@@ -108,6 +108,25 @@ Default deployment expectations:
 - Environment-specific values for local, staging, and production.
 - Attestation and eventing hooks for node and workload trust.
 
+## Source control and cloud backup
+
+PPC uses `https://git.c3-voice.org` as the Forgejo source-of-truth and primary
+cloud backup for agency work.
+
+Agent expectations:
+
+- Treat Forgejo as authoritative when a task references PPC agency source,
+  historical work, or source-of-truth repositories.
+- Prefer a Forgejo MCP server when one is available.
+- If no Forgejo MCP server is available, use the Forgejo API or git remotes when
+  credentials are configured.
+- Do not assume GitHub is the source of truth for PPC agency work. GitHub may be
+  a working mirror, PR surface, or public collaboration target.
+- Never store Forgejo access tokens in tracked files. Use environment variables
+  or the agent platform secret store.
+- When mirroring between GitHub and Forgejo, document which remote is
+  authoritative for issues, PRs, releases, and deployment tags.
+
 ## Agent decision rule
 
 When a new project starts, agents should assume this order of preference:
@@ -126,5 +145,7 @@ When a new project starts, agents should assume this order of preference:
    Cloudflare and confirm details through the Cloudflare MCP tools.
 9. Does it need sovereign node communication? Use NATS JetStream, DIDComm v2,
    Kubernetes attestation events, and Helm.
+10. Does it need agency source-of-truth history or backup access? Use Forgejo at
+    `git.c3-voice.org`, preferably through a Forgejo MCP integration.
 
 If a task chooses a different stack, the spec must explain why.

@@ -10,7 +10,7 @@ stack is documented in [`TECH_STACK.md`](TECH_STACK.md).
 
 | Area | Recommended tool | Purpose |
 | --- | --- | --- |
-| Git | Git + GitHub CLI | Source control and PR inspection |
+| Git | Git, GitHub CLI, Forgejo MCP/API | Source control, PR inspection, and PPC source-of-truth backup access |
 | TypeScript | Node.js LTS + pnpm | Svelte PWAs, dapps, SDKs, Cloudflare code, automation |
 | Python | Python 3 + uv or pipx | Services, data workflows, oracle prototypes, automation |
 | Frontend | Svelte | Dual desktop and mobile PWA/dapp surfaces |
@@ -23,7 +23,6 @@ stack is documented in [`TECH_STACK.md`](TECH_STACK.md).
 | Messaging | NATS CLI | NATS JetStream streams, consumers, and node messaging |
 | Containers | Docker | Reproducible services and infra dependencies |
 | Orchestration | kubectl + Helm | Kubernetes and Helm distribution |
-| Containers | Docker | Reproducible services and infra dependencies |
 
 ## Suggested installs
 
@@ -126,6 +125,23 @@ When Cloudflare implementation details matter, agents must use the
 Pages, R2, D1, Durable Objects, KV, Queues, WAF, DDoS protection, API Shield,
 Turnstile, Tunnel, Spectrum, Workers AI, Vectorize, and related platform
 decisions.
+
+## Forgejo source-of-truth requirement
+
+PPC uses `https://git.c3-voice.org` as the Forgejo source-of-truth and primary
+cloud backup for agency work. Agents should use a Forgejo MCP server when one is
+available. If a Forgejo MCP server is not available, agents may use normal git
+remotes or the Forgejo API when credentials are configured.
+
+Recommended environment variables:
+
+```bash
+FORGEJO_URL=https://git.c3-voice.org
+FORGEJO_TOKEN=
+FORGEJO_OWNER=
+```
+
+Keep Forgejo tokens in local `.env` files or platform secret stores only.
 
 ## Cloud agent notes
 

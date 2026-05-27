@@ -57,6 +57,8 @@ Default biases:
 - **Cloudflare** for edge, security, storage, and distributed infrastructure.
 - **Kubernetes, Helm, NATS JetStream, DIDComm v2, and Kubernetes attestation
   events** for sovereign node-oriented communications.
+- **Forgejo at `https://git.c3-voice.org`** as the source-of-truth and primary
+  cloud backup for PPC agency work.
 
 Agents should not default to EVM, Solidity, Foundry, or Hardhat unless the
 client or project scope is explicitly EVM-based.
@@ -199,6 +201,9 @@ needs structured thinking.
   them.
 - Use the `Cloudflare-docs` MCP server before making Cloudflare implementation
   decisions.
+- Prefer a Forgejo MCP server for PPC source-of-truth repo access. If no Forgejo
+  MCP server is available, use Forgejo's API or git remotes only when credentials
+  are configured.
 - Use official Svelte guidance before editing Svelte components or modules.
 
 ## Required evidence in PRs

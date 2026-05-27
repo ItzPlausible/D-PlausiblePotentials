@@ -12,6 +12,8 @@ alwaysApply: true
   Hyperledger Credo, Identus, AnonCreds, DIDComm v2, LayerZero, Cosmos IBC,
   TypeScript, Python, Svelte, Cloudflare, Kubernetes, Helm, NATS JetStream, and
   Kubernetes attestation events according to the project need.
+- Treat `https://git.c3-voice.org` as the Forgejo source-of-truth and primary
+  cloud backup for PPC agency work.
 - Do not default to EVM, Solidity, Foundry, or Hardhat unless the project is
   explicitly EVM-based.
 - For vague requests, use `agent-playbooks/product-office-hours.md` to clarify
@@ -29,6 +31,9 @@ alwaysApply: true
 - Do not deploy to mainnet or execute privileged transactions unless the user
   explicitly approves the exact action.
 - Use the `Cloudflare-docs` MCP server for Cloudflare implementation decisions.
+- Prefer a Forgejo MCP server for PPC source-of-truth repo access. If Forgejo MCP
+  is unavailable, use Forgejo API or git remotes only when credentials are
+  configured.
 - Use official Svelte guidance before creating or editing Svelte components or
   Svelte modules.
 - Add or update docs when behavior, architecture, environment, or deployment

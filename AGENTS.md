@@ -30,6 +30,8 @@ Consulting stack preferences. Default to:
   infrastructure.
 - Kubernetes, Helm, NATS JetStream, DIDComm v2, and Kubernetes attestation events
   for sovereign node-oriented communications.
+- Forgejo at `https://git.c3-voice.org` as the source-of-truth and primary cloud
+  backup for PPC agency work.
 
 Do not default to EVM, Solidity, Foundry, or Hardhat unless the project is
 explicitly EVM-based.
@@ -111,6 +113,9 @@ thinking:
   them.
 - For Cloudflare implementation work, use the `Cloudflare-docs` MCP server to
   confirm current product behavior and configuration.
+- For PPC source-of-truth repo access, prefer a Forgejo MCP server. If no
+  Forgejo MCP server is available, use Forgejo's API or git remotes only when
+  credentials are configured.
 - For Svelte component or module work, use official Svelte guidance before
   editing.
 
