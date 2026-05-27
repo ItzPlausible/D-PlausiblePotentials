@@ -61,6 +61,7 @@ agent is treated like a team of specialists instead of a generic autocomplete.
 │   ├── ENVIRONMENT.md                # Local and cloud development setup
 │   ├── OPERATING_MODEL.md            # Agency delivery process
 │   ├── PREFLIGHT_COMMAND_C3_PWA.md   # command.C3 desktop PWA production pre-flight
+│   ├── PREFLIGHT_KOSMO_COMMONS_AGENT.md # Kosmo Commons Support Agent pre-flight
 │   ├── PREFLIGHT_MOKOKO_PWA.md       # MoKoKo mobile voice-first PWA pre-flight
 │   ├── SAGE_MASTRANTO_PEER.md        # SAGE memory/provenance peer design
 │   ├── SCHEMA_MAPPINGS_NATS_K8S.md   # NATS and Kubernetes schema mappings
