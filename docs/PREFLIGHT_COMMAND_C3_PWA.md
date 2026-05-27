@@ -287,6 +287,7 @@ The first production-wiring pass was implemented in Forgejo feature branches:
 | --- | --- | --- | --- |
 | `kosmo/command-center` | `cursor/command-pwa-production-wiring-e9f7` | `5665365` | Align Svelte PWA to `command-c3`, fix auth method, remove browser-global env assumptions, route inference through `/api/inference`, add PWA icons, normalize market/commons data, clean Svelte warnings. |
 | `c3-alliance/command-c3` | `cursor/command-c3-dashboard-presence-e9f7` | `e4def0a` | Stabilize `/api/v1/member/dashboard`, add compatibility payload shape, add `/api/v1/member/presence`, make member routes tolerate D1 query gaps instead of throwing 500. |
+| `c3-alliance/c3-gate` | `cursor/c3-gate-nats-websocket-bridge-e9f7` | `86ef2c2` | Implement first-production `/ws/koko` and `/ws/kosmo` bridge from browser WebSockets to NATS, with DIDComm/passkey auth verification, NATS mTLS config hooks, and K8s attestation-event publication. |
 
 Validation performed:
 
@@ -302,6 +303,13 @@ node --check src/xpt-verification.js
 node --check src/zero-trust.js
 node --check src/c3-capability.js
 git diff --check
+
+# c3-alliance/c3-gate
+node -e "const {connect,StringCodec}=require('nats'); console.log(typeof connect, typeof StringCodec)"
+node --check server.js
+node --check nats-publisher.js
+npm audit --omit=dev
+git diff --check
 ```
 
 Results:
@@ -310,14 +318,22 @@ Results:
 - SvelteKit production build: passed.
 - Worker JavaScript syntax checks: passed.
 - Whitespace checks: passed.
+- c3-gate NATS dependency loads.
+- c3-gate production dependency audit: 0 vulnerabilities after package update.
 
-Remaining deferred blocker:
+WebSocket decision:
 
-- `c3-alliance/cocoa-v2/apps/command` contains `/ws/koko` and `/ws/kosmo`
-  client stores, but `command-c3` does not implement WebSocket upgrade routes.
-  This is intentionally deferred until the production decision is made:
-  - implement WebSocket fanout backed by NATS, or
-  - keep live panels disabled/hidden for first production.
+- Implement NATS-backed WebSockets for first production.
+- Terminate browser WebSockets at `c3-gate`, not at the Cloudflare Worker.
+- Keep NATS inside the sovereign node boundary.
+- Use `NATS_CREDS` plus optional mTLS files:
+  - `NATS_TLS_CA_FILE`
+  - `NATS_TLS_CERT_FILE`
+  - `NATS_TLS_KEY_FILE`
+- Publish connect/disconnect/auth-failure attestation events under
+  `c3.kosmo.k8s.atestado.ws.*`.
+- `/ws/koko` subscribes to `c3.koko.>` and `c3.kosmo.handoff.delegated`.
+- `/ws/kosmo` subscribes to `c3.kosmo.>` and `c3.kosmo.k8s.atestado.>`.
 
 ## SAGE-Mastranto alignment
 

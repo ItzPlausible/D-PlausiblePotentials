@@ -32,6 +32,7 @@ Use authorized scopes first. Until a future CEP creates or authorizes
 | Provenance atom | `c3.kosmo.sage.atomo.atestita` | JetStream | Atom receipt issued or registered. |
 | Capability check | `c3.kosmo.sage.kapableco.*` | JetStream | Capability accepted/rejected/revoked. |
 | Kubernetes attestation | `c3.kosmo.k8s.atestado.*` | JetStream | Workload, pod, deployment, and secret-shape attestations. |
+| Browser WebSocket attestation | `c3.kosmo.k8s.atestado.ws.*` | JetStream | c3-gate WebSocket connect/disconnect/auth-fail events. |
 | Mission event | `c3.misio.*` | JetStream | Mission lifecycle, already authorized. |
 | Quest event | `c3.kverko.*` | JetStream | Quest lifecycle, already authorized. |
 | CEP ratification | `c3.cep.ratifita` | JetStream | CEP ratification, already authorized. |
@@ -182,6 +183,44 @@ Recommended subject mapping:
 | Pod ready | `c3.kosmo.k8s.atestado.pod.ready` |
 | Secret shape verified | `c3.kosmo.k8s.atestado.secret.verified` |
 | Helm release diffed | `c3.kosmo.k8s.atestado.helm.diffed` |
+| WebSocket connected | `c3.kosmo.k8s.atestado.ws.connected` |
+| WebSocket disconnected | `c3.kosmo.k8s.atestado.ws.disconnected` |
+| WebSocket auth failed | `c3.kosmo.k8s.atestado.ws.auth_failed` |
+
+## WebSocket bridge contract
+
+First production WebSocket fanout terminates at `c3-gate`:
+
+| Route | Auth shape | NATS subscriptions | Client |
+| --- | --- | --- | --- |
+| `/ws/koko?token=...` | DIDComm capability bearer, with passkey-session fallback during Alpha | `c3.koko.>`, `c3.kosmo.handoff.delegated` | KoKo/member live panels |
+| `/ws/kosmo` | post-upgrade `{ "tipo": "auth", "token": "..." }` | `c3.kosmo.>`, `c3.kosmo.k8s.atestado.>` | Kosmo/admin live panels |
+
+The bridge must not expose NATS credentials to the browser. NATS authentication
+stays server-side in `c3-gate` using `NATS_CREDS`; mTLS-capable deployments use:
+
+```bash
+NATS_TLS_CA_FILE=
+NATS_TLS_CERT_FILE=
+NATS_TLS_KEY_FILE=
+```
+
+Each successful connection, disconnect, and auth failure should emit an
+attestation event:
+
+```json
+{
+  "schema_version": "c3.ws.attestation.v1",
+  "event_type": "ws.connected",
+  "surface": "koko",
+  "service": "c3-gate",
+  "namespace": "c3-agents",
+  "occurred_at": "2026-05-27T00:00:00.000Z",
+  "auth_method": "didcomm-capability",
+  "seid": "member-seid",
+  "token_hash": "sha256-prefix"
+}
+```
 
 ## Helm values schema
 
