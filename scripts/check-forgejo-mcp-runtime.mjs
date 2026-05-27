@@ -4,6 +4,7 @@ import { StdioClientTransport } from "@modelcontextprotocol/sdk/client/stdio.js"
 const expectedTools = new Set([
   "forgejo_version",
   "forgejo_whoami",
+  "forgejo_list_instance_repos",
   "forgejo_search_repos",
   "forgejo_list_my_repos",
   "forgejo_list_org_repos",

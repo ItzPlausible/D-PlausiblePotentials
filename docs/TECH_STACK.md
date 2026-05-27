@@ -110,8 +110,8 @@ Default deployment expectations:
 
 ## Source control and cloud backup
 
-PPC uses `https://git.c3-voice.org` as the Forgejo source-of-truth and primary
-cloud backup for agency work.
+PPC uses the full Forgejo instance at `https://git.c3-voice.org` as the
+source-of-truth and primary cloud backup for agency work.
 
 Agent expectations:
 
@@ -119,7 +119,8 @@ Agent expectations:
   historical work, or source-of-truth repositories.
 - Prefer the Forgejo MCP server in `mcp/forgejo/` when one is available.
   MCP-backed access is the desired workflow for agent access to the
-  backup/source-of-truth repo.
+  backup/source-of-truth instance.
+- Use instance-level MCP discovery before adding repo-specific git remotes.
 - If no Forgejo MCP server is available, use the Forgejo API or git remotes only
   when credentials are provided through managed environment secrets.
 - Do not assume GitHub is the source of truth for PPC agency work. GitHub may be

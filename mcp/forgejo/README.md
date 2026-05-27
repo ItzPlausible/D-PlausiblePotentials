@@ -1,6 +1,7 @@
 # Forgejo MCP Server
 
-This is PPC's Forgejo MCP integration for `https://git.c3-voice.org`.
+This is PPC's Forgejo MCP integration for the full Forgejo instance at
+`https://git.c3-voice.org`.
 
 It exposes read-oriented Forgejo tools over stdio so Cursor or another MCP host
 can access the Forgejo source-of-truth without committing tokens to git or
@@ -12,6 +13,7 @@ depending on local repo files.
 | --- | --- |
 | `forgejo_version` | Check Forgejo API reachability and version. |
 | `forgejo_whoami` | Verify the authenticated user for `FORGEJO_TOKEN`. |
+| `forgejo_list_instance_repos` | List repositories visible across the Forgejo instance. |
 | `forgejo_search_repos` | Search repositories visible to the token. |
 | `forgejo_list_my_repos` | List repositories visible to the authenticated user. |
 | `forgejo_list_org_repos` | List repositories for an organization. |
@@ -85,6 +87,8 @@ location. PPC's intended workflow is:
 
 ## Current scope
 
-This server is intentionally read-oriented first. Add write tools only after PPC
-defines clear approval rules for mirroring, branch creation, issue updates, and
-release tagging.
+This server is intentionally read-oriented first and instance-aware. It can
+enumerate repositories visible to the token across `git.c3-voice.org`, while git
+remotes remain repo-specific by design. Add write tools only after PPC defines
+clear approval rules for mirroring, branch creation, issue updates, and release
+tagging.

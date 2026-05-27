@@ -143,6 +143,38 @@ server.registerTool(
 );
 
 server.registerTool(
+  "forgejo_list_instance_repos",
+  {
+    title: "List Forgejo instance repositories",
+    description:
+      "List repositories visible across the configured Forgejo instance. For admin tokens, this is the source-of-truth inventory view.",
+    inputSchema: {
+      query: z.string().default(""),
+      limit: z.number().int().min(1).max(50).default(25),
+      page: z.number().int().min(1).default(1),
+    },
+  },
+  async ({ query, limit, page }) => {
+    requireToken();
+    const result = await forgejoRequest(
+      `/api/v1/repos/search${urlQuery({ q: query, limit, page })}`,
+    );
+    return text({
+      total_count: result.total_count,
+      repositories: (result.data || []).map((repo) => ({
+        full_name: repo.full_name,
+        clone_url: repo.clone_url,
+        ssh_url: repo.ssh_url,
+        private: repo.private,
+        default_branch: repo.default_branch,
+        updated_at: repo.updated_at,
+        description: repo.description,
+      })),
+    });
+  },
+);
+
+server.registerTool(
   "forgejo_search_repos",
   {
     title: "Search Forgejo repositories",

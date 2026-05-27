@@ -5,6 +5,7 @@ const source = readFileSync("mcp/forgejo/server.mjs", "utf8");
 const requiredTools = [
   "forgejo_version",
   "forgejo_whoami",
+  "forgejo_list_instance_repos",
   "forgejo_search_repos",
   "forgejo_list_my_repos",
   "forgejo_list_org_repos",
