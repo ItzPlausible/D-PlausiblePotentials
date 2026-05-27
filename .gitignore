@@ -1,0 +1,45 @@
+# Environment and secrets
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.keystore
+mnemonic.txt
+secrets/
+
+# Dependencies
+node_modules/
+.pnpm-store/
+vendor/
+
+# Build outputs
+dist/
+build/
+out/
+cache/
+artifacts/
+typechain-types/
+coverage/
+
+# Foundry
+broadcast/
+lib/
+!templates/**/lib/
+
+# Logs and local state
+*.log
+.DS_Store
+.cache/
+.tmp/
+tmp/
+
+# AI agent local state
+.claude/
+.agents/
+.context/
+.gstack/
+
+# Editor state
+.vscode/
+!.vscode/extensions.json
