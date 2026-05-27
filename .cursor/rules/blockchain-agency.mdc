@@ -14,6 +14,9 @@ alwaysApply: true
   Kubernetes attestation events according to the project need.
 - Treat `https://git.c3-voice.org` as the Forgejo source-of-truth and primary
   cloud backup for PPC agency work.
+- Treat SAGE-Mastranto as the memory/provenance peer. For SAGE, NATS, or
+  Kubernetes attestation work, read `docs/SAGE_MASTRANTO_PEER.md` and
+  `docs/SCHEMA_MAPPINGS_NATS_K8S.md` first.
 - Do not default to EVM, Solidity, Foundry, or Hardhat unless the project is
   explicitly EVM-based.
 - For vague requests, use `agent-playbooks/product-office-hours.md` to clarify

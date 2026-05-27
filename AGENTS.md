@@ -32,9 +32,16 @@ Consulting stack preferences. Default to:
   for sovereign node-oriented communications.
 - Forgejo at `https://git.c3-voice.org` as the source-of-truth and primary cloud
   backup for PPC agency work.
+- SAGE-Mastranto as the peer responsible for memory, provenance, canonical to
+  derived synchronization, and retrieval surfaces.
 
 Do not default to EVM, Solidity, Foundry, or Hardhat unless the project is
 explicitly EVM-based.
+
+For memory/provenance work, read `docs/SAGE_MASTRANTO_PEER.md` and
+`docs/SCHEMA_MAPPINGS_NATS_K8S.md` before designing or editing implementation.
+Respect the canonical/derived law: Forgejo and D1 are canonical; pgvector,
+Neo4j/Graphiti, Mem0, Zep, and caches are derived and rebuildable.
 
 ## Default workflow
 

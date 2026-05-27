@@ -59,6 +59,8 @@ agent is treated like a team of specialists instead of a generic autocomplete.
 │   ├── AI_AGENT_OPERATING_GUIDE.md   # Human-readable agent workflow guide
 │   ├── ENVIRONMENT.md                # Local and cloud development setup
 │   ├── OPERATING_MODEL.md            # Agency delivery process
+│   ├── SAGE_MASTRANTO_PEER.md        # SAGE memory/provenance peer design
+│   ├── SCHEMA_MAPPINGS_NATS_K8S.md   # NATS and Kubernetes schema mappings
 │   ├── SECURITY.md                   # Blockchain security baseline
 │   └── TECH_STACK.md                 # PPC technology preferences
 ├── agent-playbooks/                  # Reusable prompts/checklists for agent sessions

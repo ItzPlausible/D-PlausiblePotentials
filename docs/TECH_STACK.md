@@ -86,6 +86,12 @@ development. The default pattern is:
 Agents should model message ordering, replay protection, identity binding,
 offline behavior, and operational recovery for this layer.
 
+For SAGE-Mastranto memory/provenance work, use
+[`SAGE_MASTRANTO_PEER.md`](SAGE_MASTRANTO_PEER.md) and
+[`SCHEMA_MAPPINGS_NATS_K8S.md`](SCHEMA_MAPPINGS_NATS_K8S.md). These documents
+map SAGE events to currently authorized NATS subjects and Kubernetes/Helm
+runtime metadata.
+
 ## Identity and credentials
 
 For DID and verifiable credential projects, the default preference is:
@@ -151,5 +157,7 @@ When a new project starts, agents should assume this order of preference:
    Kubernetes attestation events, and Helm.
 10. Does it need agency source-of-truth history or backup access? Use Forgejo at
     `git.c3-voice.org`, preferably through a Forgejo MCP integration.
+11. Does it touch memory, provenance, or derived indexes? Route through
+    SAGE-Mastranto and preserve the canonical/derived law.
 
 If a task chooses a different stack, the spec must explain why.
