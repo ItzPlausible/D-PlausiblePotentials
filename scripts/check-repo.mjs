@@ -9,6 +9,7 @@ const requiredPaths = [
   "AGENTS.md",
   "docs/ENVIRONMENT.md",
   "docs/OPERATING_MODEL.md",
+  "docs/PREFLIGHT_COMMAND_C3_PWA.md",
   "docs/SAGE_MASTRANTO_PEER.md",
   "docs/SCHEMA_MAPPINGS_NATS_K8S.md",
   "docs/SECURITY.md",
