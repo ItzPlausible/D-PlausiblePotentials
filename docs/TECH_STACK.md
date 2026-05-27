@@ -117,13 +117,15 @@ Agent expectations:
 
 - Treat Forgejo as authoritative when a task references PPC agency source,
   historical work, or source-of-truth repositories.
-- Prefer a Forgejo MCP server when one is available.
-- If no Forgejo MCP server is available, use the Forgejo API or git remotes when
-  credentials are configured.
+- Prefer a Forgejo MCP server when one is available. MCP-backed access is the
+  desired workflow for agent access to the backup/source-of-truth repo.
+- If no Forgejo MCP server is available, use the Forgejo API or git remotes only
+  when credentials are provided through managed environment secrets.
 - Do not assume GitHub is the source of truth for PPC agency work. GitHub may be
   a working mirror, PR surface, or public collaboration target.
-- Never store Forgejo access tokens in tracked files. Use environment variables
-  or the agent platform secret store.
+- Never store Forgejo access tokens in tracked files.
+- Do not make local `.env` files the normal access pattern for PPC source-of-truth
+  repos. Local `.env` is only a disposable local-development fallback.
 - When mirroring between GitHub and Forgejo, document which remote is
   authoritative for issues, PRs, releases, and deployment tags.
 

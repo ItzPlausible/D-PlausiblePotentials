@@ -47,16 +47,27 @@ Hyperledger Fabric, Cosmos SDK, LayerZero, and NATS should be installed when a
 client project requires them. Document exact versions in the client project
 README.
 
-## Environment variables
+## Secrets and environment variables
 
-Copy `.env.example` to `.env` and fill only what the current project requires.
+PPC does not rely on local storage as the primary secrets workflow. Use managed
+secrets and authenticated integrations first:
+
+1. MCP server authentication for services that support MCP.
+2. Cursor or cloud-agent environment secrets.
+3. CI/CD secret stores.
+4. Kubernetes secrets, sealed secrets, external-secrets, or the client-approved
+   secret manager.
+5. Local `.env` files only for disposable local development.
+
+`.env.example` is a reference schema for variable names, not the preferred place
+to configure agency access.
 
 Rules:
 
-- Keep `.env` local.
-- Never commit seed phrases, private keys, deployer keys, or production API keys.
+- Never commit seed phrases, private keys, deployer keys, access tokens, or
+  production API keys.
+- Do not place source-of-truth Forgejo credentials in GitHub-tracked files.
 - Use testnet-only throwaway keys for examples and CI.
-- Prefer platform secret stores for CI and deployments.
 - Rotate any secret that appears in chat, logs, shell history, screenshots, or a
   public repository.
 
@@ -130,10 +141,15 @@ decisions.
 
 PPC uses `https://git.c3-voice.org` as the Forgejo source-of-truth and primary
 cloud backup for agency work. Agents should use a Forgejo MCP server when one is
-available. If a Forgejo MCP server is not available, agents may use normal git
-remotes or the Forgejo API when credentials are configured.
+available. This is the preferred workflow because it avoids local token handling
+and lets the user control authentication at the platform level.
 
-Recommended environment variables:
+If a Forgejo MCP server is not available, agents may use normal git remotes or
+the Forgejo API only when credentials are provided through managed environment
+secrets. Do not ask the user to commit credentials or rely on GitHub-tracked
+files for Forgejo access.
+
+Expected managed secret names when an MCP integration is not available:
 
 ```bash
 FORGEJO_URL=https://git.c3-voice.org
@@ -141,7 +157,8 @@ FORGEJO_TOKEN=
 FORGEJO_OWNER=
 ```
 
-Keep Forgejo tokens in local `.env` files or platform secret stores only.
+Local `.env` is a last-resort local development fallback, not PPC's normal
+source-of-truth access pattern.
 
 ## Cloud agent notes
 

@@ -115,7 +115,8 @@ thinking:
   confirm current product behavior and configuration.
 - For PPC source-of-truth repo access, prefer a Forgejo MCP server. If no
   Forgejo MCP server is available, use Forgejo's API or git remotes only when
-  credentials are configured.
+  credentials are provided through managed environment secrets. Do not make local
+  `.env` files the normal PPC source-of-truth workflow.
 - For Svelte component or module work, use official Svelte guidance before
   editing.
 
