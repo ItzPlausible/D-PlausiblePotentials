@@ -165,18 +165,36 @@ server.registerTool(
     description: "Verify the configured Cloudflare API token and return non-secret metadata.",
   },
   async () => {
-    const data = await cloudflareRequest("/user/tokens/verify");
-    return text({
-      success: data.success,
-      result: data.result
-        ? {
-            id: data.result.id,
-            status: data.result.status,
-          }
-        : null,
-      errors: data.errors,
-      messages: data.messages,
-    });
+    try {
+      const data = await cloudflareRequest("/user/tokens/verify");
+      return text({
+        success: data.success,
+        verification_method: "token_verify_endpoint",
+        result: data.result
+          ? {
+              id: data.result.id,
+              status: data.result.status,
+            }
+          : null,
+        errors: data.errors,
+        messages: data.messages,
+      });
+    } catch (err) {
+      // Some account-scoped tokens work for Wrangler/account APIs but are not
+      // accepted by /user/tokens/verify. Treat account listing as fallback proof.
+      const accounts = await cloudflareRequest("/accounts");
+      return text({
+        success: true,
+        verification_method: "accounts_api_fallback",
+        note: "Token verify endpoint failed, but account API access succeeded.",
+        accounts: (accounts.result || []).map((account) => ({
+          id: account.id,
+          name: account.name,
+          type: account.type,
+        })),
+        verify_error: err.message,
+      });
+    }
   },
 );
 

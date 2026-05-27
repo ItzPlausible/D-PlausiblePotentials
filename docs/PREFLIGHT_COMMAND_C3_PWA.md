@@ -344,33 +344,43 @@ Source-of-truth implementation is merged in Forgejo:
 | Repo | Main includes |
 | --- | --- |
 | `kosmo/command-center` | `5665365` |
-| `c3-alliance/command-c3` | `e4def0a` |
+| `c3-alliance/command-c3` | `e4def0a`, `eb12798` |
 | `c3-alliance/c3-gate` | `86ef2c2` |
 
-Live Cloudflare deployment was not performed from this agent environment because
-Wrangler is unauthenticated and no Cloudflare API token/account environment
-variables are available here.
-
-Post-merge live probes still show the previous deployed Worker behavior:
+Cloudflare deployment status:
 
 | Probe | Result |
 | --- | --- |
-| `https://command.c3-alliance.org` | `200 OK`, current deployed PWA still served. |
+| `https://command.c3-alliance.org` | `200 OK`, updated PWA assets served. |
+| `https://command.c3-alliance.org/manifest.json` | `200 OK`. |
+| `https://command.c3-alliance.org/icon-192.png` | `200 OK`, generated icon served. |
 | `https://command-c3.team-d90.workers.dev/_health` | `200 OK`. |
-| `https://command-c3.team-d90.workers.dev/api/v1/member/dashboard` | Still `500`, indicating updated `command-c3` source is not deployed yet. |
-| `https://command-c3.team-d90.workers.dev/api/v1/member/presence` | Still `404`, indicating updated `command-c3` source is not deployed yet. |
+| `https://command-c3.team-d90.workers.dev/api/v1/member/dashboard` | `200 OK` with alpha token. |
+| `https://command-c3.team-d90.workers.dev/api/v1/member/presence` | `200 OK` with alpha token. |
+| `https://command-c3.team-d90.workers.dev/io/commons/ledger` | `200 OK`, empty auction list tolerated. |
 | `https://gate.c3-voice.org/_health` | `200 OK`. |
+
+Deploy notes:
+
+- `command-c3` deployed successfully to Cloudflare Worker version
+  `005c198d-bcdb-41b9-9868-5d374004a076`.
+- `command-c3-alliance` Worker upload and asset upload succeeded. Wrangler could
+  not update routes because the token lacks zone route permissions, but the
+  existing route is serving the updated worker/assets.
+- `c3-gate` source is merged, but the sovereign node service still needs a
+  restart/redeploy from Forgejo `main` for `/ws/koko` and `/ws/kosmo` bridge
+  changes to become live.
 
 Deployment follow-up:
 
-1. Deploy `c3-alliance/command-c3` from Forgejo `main` to Cloudflare Workers.
-2. Deploy `kosmo/command-center` from Forgejo `main` to Cloudflare Workers.
-3. Restart/redeploy `c3-gate` on the sovereign node from Forgejo `main`.
-4. Provision NATS mTLS files if the production NATS endpoint requires TLS:
+1. Restart/redeploy `c3-gate` on the sovereign node from Forgejo `main`.
+2. Provision NATS mTLS files if the production NATS endpoint requires TLS:
    - `NATS_TLS_CA_FILE`
    - `NATS_TLS_CERT_FILE`
    - `NATS_TLS_KEY_FILE`
-5. Re-run smoke probes for dashboard, presence, `/ws/koko`, and `/ws/kosmo`.
+3. Re-run smoke probes for `/ws/koko` and `/ws/kosmo`.
+4. Add zone route edit permission to the Cloudflare token before future route
+   changes, or keep using pre-existing routes only.
 
 ## SAGE-Mastranto alignment
 
