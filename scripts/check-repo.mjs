@@ -7,6 +7,7 @@ const root = process.cwd();
 const requiredPaths = [
   "README.md",
   "AGENTS.md",
+  "docs/C3_PWA_ONBOARDING_FLOW.md",
   "docs/ENVIRONMENT.md",
   "docs/OPERATING_MODEL.md",
   "docs/PREFLIGHT_COMMAND_C3_PWA.md",

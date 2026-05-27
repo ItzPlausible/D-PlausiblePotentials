@@ -7,6 +7,11 @@ to production as the **PWA Desktop Dashboard for the C3 Alliance Substrate**.
 
 This pre-flight focuses on backend wiring for the Svelte frontend.
 
+For the global PWA entry and surface-selection design intent, see
+[`C3_PWA_ONBOARDING_FLOW.md`](C3_PWA_ONBOARDING_FLOW.md). That document defines
+`C3-Alliance.org` as the global browser-first entry point and keeps onboarding
+behavior separate from the backend wiring blockers below.
+
 ## Source repositories inspected
 
 Forgejo instance: `https://git.c3-voice.org`

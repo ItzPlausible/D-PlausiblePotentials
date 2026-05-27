@@ -57,6 +57,7 @@ agent is treated like a team of specialists instead of a generic autocomplete.
 ├── AGENTS.md                         # AI-agent operating rules and specialist roles
 ├── docs/
 │   ├── AI_AGENT_OPERATING_GUIDE.md   # Human-readable agent workflow guide
+│   ├── C3_PWA_ONBOARDING_FLOW.md     # Global PWA entry and surface routing intent
 │   ├── ENVIRONMENT.md                # Local and cloud development setup
 │   ├── OPERATING_MODEL.md            # Agency delivery process
 │   ├── PREFLIGHT_COMMAND_C3_PWA.md   # command.C3 desktop PWA production pre-flight
