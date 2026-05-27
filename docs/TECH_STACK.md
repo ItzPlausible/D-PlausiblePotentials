@@ -117,8 +117,9 @@ Agent expectations:
 
 - Treat Forgejo as authoritative when a task references PPC agency source,
   historical work, or source-of-truth repositories.
-- Prefer a Forgejo MCP server when one is available. MCP-backed access is the
-  desired workflow for agent access to the backup/source-of-truth repo.
+- Prefer the Forgejo MCP server in `mcp/forgejo/` when one is available.
+  MCP-backed access is the desired workflow for agent access to the
+  backup/source-of-truth repo.
 - If no Forgejo MCP server is available, use the Forgejo API or git remotes only
   when credentials are provided through managed environment secrets.
 - Do not assume GitHub is the source of truth for PPC agency work. GitHub may be

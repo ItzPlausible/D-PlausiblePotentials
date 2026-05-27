@@ -12,6 +12,8 @@ const requiredPaths = [
   "docs/SECURITY.md",
   "docs/TECH_STACK.md",
   "agent-playbooks/README.md",
+  "mcp/forgejo/server.mjs",
+  "mcp/forgejo/README.md",
   "templates/client-project/README.md",
   ".env.example",
   ".gitignore",

@@ -140,9 +140,10 @@ decisions.
 ## Forgejo source-of-truth requirement
 
 PPC uses `https://git.c3-voice.org` as the Forgejo source-of-truth and primary
-cloud backup for agency work. Agents should use a Forgejo MCP server when one is
-available. This is the preferred workflow because it avoids local token handling
-and lets the user control authentication at the platform level.
+cloud backup for agency work. Agents should use the Forgejo MCP server in
+`mcp/forgejo/` when one is available. This is the preferred workflow because it
+avoids local token handling and lets the user control authentication at the
+platform level.
 
 If a Forgejo MCP server is not available, agents may use normal git remotes or
 the Forgejo API only when credentials are provided through managed environment
