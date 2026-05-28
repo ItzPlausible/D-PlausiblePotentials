@@ -139,3 +139,20 @@ Every non-trivial PR should include:
   for that deployment and provides the release checklist approval.
 - If instructions conflict, prioritize security, user funds, and repository
   history.
+
+## Cursor Cloud specific instructions
+
+This repo is a documentation-and-governance workspace, not a runnable application.
+The only executable is the zero-dependency repo hygiene script.
+
+- **Lint / test command:** `npm run check` (runs `node scripts/check-repo.mjs`).
+  There are no other test suites, linters, or build steps at the repo level.
+- **No `npm install` needed.** The `package.json` has zero dependencies. The
+  check script uses only Node.js built-ins (`fs`, `path`, `process`).
+- **Node.js >= 20** is the only runtime requirement.
+- When client projects are added under `clients/`, they will bring their own
+  dependency and tooling instructions. See `docs/ENVIRONMENT.md` for the
+  recommended per-project commands (`pnpm install`, `pnpm lint`, etc.).
+- The `.env.example` lists placeholder variables for many chains and services.
+  None are consumed by any code in this repo; they exist as a template for
+  future client projects.
